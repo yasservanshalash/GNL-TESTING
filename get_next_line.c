@@ -62,14 +62,14 @@ char *line_logic(int fd, char **line, int *i, int *j)
     while (read_chars > 0)
     {
         *i += read_chars;
-        
+
         // Check if the line contains a newline character
         if (ft_strchr(*line, '\n'))
         {
             *j = *i - read_chars;
             while (*j < *i && (*line)[*j] != '\n')
                 (*j)++;
-            
+
             // Check if a newline character was found within the current buffer
             if (*j < *i)
             {
@@ -93,9 +93,16 @@ char *line_logic(int fd, char **line, int *i, int *j)
 
     // Handle leftover logic at the end of the file if needed
 
+    // Check if read returned -1
+    if (read_chars == -1)
+    {
+        // Clear the buffer and return NULL
+        free(*line);
+        *line = NULL;
+    }
+
     return leftover;
 }
-
 
 char	*get_next_line(int fd)
 {
@@ -122,6 +129,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 }
+
 
 
 // int main(void) {
