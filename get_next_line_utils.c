@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils.c                              :+:    :+:            */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: yasser <marvin@42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 15:18:07 by yasser        #+#    #+#                 */
-/*   Updated: 2024/01/11 14:58:16 by yshalash      ########   odam.nl         */
+/*   Updated: 2024/01/12 16:33:38 by yasser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stddef.h>
 
 char	*ft_strdup(const char *src)
 {
@@ -95,7 +95,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 void	*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
 {
 	void	*new;
-	size_t min_size;
+	size_t	min_size;
 
 	if (!ptr)
 		return (NULL);
@@ -106,7 +106,7 @@ void	*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
 	}
 	if (prev_size < new_size)
 		min_size = prev_size;
-	else 
+	else
 		min_size = new_size;
 	ft_memcpy(new, ptr, min_size - BUFFER_SIZE);
 	free(ptr);
