@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yasser <marvin@42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 15:18:07 by yasser        #+#    #+#                 */
-/*   Updated: 2024/01/12 16:33:38 by yasser           ###   ########.fr       */
+/*   Updated: 2024/01/22 13:53:35 by yshalash      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_memalloc(size_t size)
-{
-	void	*mem;
-
-	if (!(mem = malloc(size)))
-		return (NULL);
-	ft_bzero(mem, size);
-	return (mem);
-}
-
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
@@ -99,11 +89,10 @@ void	*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
 
 	if (!ptr)
 		return (NULL);
-	if (!(new = ft_memalloc(new_size)))
-	{
-		free(ptr);
+	new = malloc(new_size);
+	if (!new)
 		return (NULL);
-	}
+	ft_bzero(new, new_size);
 	if (prev_size < new_size)
 		min_size = prev_size;
 	else

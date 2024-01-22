@@ -131,6 +131,16 @@ char	*get_next_line(int fd)
 
 //     char *result;
 //     while ((result = get_next_line(fd)) != NULL) {
+//         printf("%s", resu// int main(void) {
+//     int fd;
+//     fd = open("text.txt", O_RDONLY);
+//     if (fd < 0) {
+//         perror("Error opening file");
+//         return (1);
+//     }
+
+//     char *result;
+//     while ((result = get_next_line(fd)) != NULL) {
 //         printf("%s", result);
 //         free(result);  // Free each line obtained from get_next_line
 //     }
