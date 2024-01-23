@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: yshalash <marvin@42.fr>                      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/23 12:47:17 by yshalash      #+#    #+#                 */
+/*   Updated: 2024/01/23 12:48:04 by yshalash      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -50,48 +62,37 @@ char	*leftover_in_line_logic(char **leftover, char **line, int *j)
 	return (*leftover);
 }
 
+void	free_line_logic(char ***line)
+{
+	free(**line);
+	**line = NULL;
+}
+
 char	*line_logic(int fd, char **line, int *i, int *j)
 {
 	int		read_chars;
 	char	*leftover;
 
-	// Initialize the leftover pointer to NULL
 	leftover = NULL;
 	read_chars = read(fd, *line + *i, BUFFER_SIZE);
 	while (read_chars > 0)
 	{
 		*i += read_chars;
-		// Check if the line contains a newline character
 		if (ft_strchr(*line, '\n'))
 		{
 			*j = *i - read_chars;
-			while (*j < *i && (*line)[*j] != '\n')
+			while ((*line)[*j] != '\n')
 				(*j)++;
-			// Check if a newline character was found within the current buffer
 			if (*j < *i)
-			{
-				// Handle leftover logic here if needed
-				// Return a line with the newline character
 				return (leftover_in_line_logic(&leftover, line, j));
-			}
 		}
-		// Resize the buffer and continue reading
-		*line = ft_realloc(*line, *i + BUFFER_SIZE + 1, (*i + BUFFER_SIZE + 1)
-				* sizeof(char));
+		*line = ft_realloc(*line, *i + BUFFER_SIZE + 1, (*i + BUFFER_SIZE + 1));
 		if (*line == NULL)
 			return (NULL);
-		// Zero out the newly allocated portion
-		ft_bzero(*line + *i, BUFFER_SIZE + 1);
 		read_chars = read(fd, *line + *i, BUFFER_SIZE);
 	}
-	// Handle leftover logic at the end of the file if needed
-	// Check if read returned -1
 	if (read_chars == -1)
-	{
-		// Clear the buffer and return NULL
-		free(*line);
-		*line = NULL;
-	}
+		free_line_logic(&line);
 	return (leftover);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yasser <marvin@42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 15:18:07 by yasser        #+#    #+#                 */
-/*   Updated: 2024/01/22 13:53:35 by yshalash      ########   odam.nl         */
+/*   Updated: 2024/01/23 12:29:08 by yshalash      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 
 	i = 0;
 	if (!(dest || src) || n == 0)
-	{
 		return (dest);
-	}
 	while (i < n)
 	{
 		((char *)dest)[i] = ((char *)src)[i];
